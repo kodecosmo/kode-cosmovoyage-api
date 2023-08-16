@@ -1,16 +1,9 @@
 # Kode - Cosmos
 
-## Error codes
+Content :
 
-001 : User registration error
-
-
-## Database migrations
-
-### Drop All Tables & Migrate
-
-The migrate:fresh command will drop all tables from the database and then execute the migrate command:
-
-```
-php artisan migrate:fresh
-```
+1. [Installation](./documentation/Installation.md)
+2. [Error Codes](./documentation/Error-Codes.md)
+3. [API Reference](./documentation/API/)
+    1. [User Registration](./documentation/API/User-Registration.md)
+    2. [User Login](./documentation/API/User-Login.md)

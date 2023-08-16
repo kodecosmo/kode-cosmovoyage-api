@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Closure;
 
 // Models
-use App\Models\v1\User;
+use App\Models\v1\Account;
 
 class LoginUserRequest extends FormRequest
 {
@@ -27,7 +27,7 @@ class LoginUserRequest extends FormRequest
         return [
             "username" => ['required', 'exists:users,username'],   
             "password" => ['required', function (string $attribute, mixed $value, Closure $fail)  {
-                if (!Hash::check($value, User::where('username', $this->username)->first()->password)) {
+                if (!Hash::check($value, Account::where('username', $this->username)->first()->password)) {
                     return $fail(__('The password is incorrect.'));
                 }
             }],

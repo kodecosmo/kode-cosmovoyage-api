@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 // Models
-use App\Models\v1\Image;
-use App\Models\v1\DockingStation;
+use App\Models\v1\Account;
 
 return new class extends Migration
 {
@@ -15,12 +14,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gates', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->enum('status', ['open', 'closed', 'decommissioned']);
-            $table->foreignIdFor(DockingStation::class);
-            $table->foreignIdFor(Image::class);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('contact_number');
+            $table->string('email');
+            $table->enum('gender', ['male', 'female', 'other', 'rather_not_say']);
+            $table->foreignIdFor(Account::class);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gates');
+        Schema::dropIfExists('profiles');
     }
 };

@@ -6,33 +6,33 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 // Requests
-use App\Http\Requests\v1\CreateUserRequest;
-use App\Http\Requests\v1\LoginUserRequest;
+use App\Http\Requests\v1\CreateAdminRequest;
+use App\Http\Requests\v1\LoginAdminRequest;
 
 // Models
 use App\Models\v1\Account;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
-    // Create a user
+    // Create a admin
 
-    public function createUser(CreateUserRequest $request)
+    public function createAdmin(CreateAdminRequest $request)
     {
         try {
                 
-            $account = new Account;
+            $admin = new Account;
 
-            $account->username = $request->username;
-            $account->password = Hash::make($request->password);
+            $admin->username = $request->username;
+            $admin->password = Hash::make($request->password);
 
-            $account->save();
+            $admin->save();
 
             return response()->json([
                 'success' => true,
-                'message' => 'User Created Successfully.',
+                'message' => 'Admin Created Successfully.',
                 'data' => [
-                    'token' => $account->createToken("API TOKEN")->plainTextToken,
-                    'user'=> $account,
+                    'token' => $admin->createToken("API TOKEN")->plainTextToken,
+                    'admin'=> $admin,
                 ],
             ], 200);
             
@@ -46,19 +46,19 @@ class UserController extends Controller
         }
     }
     
-    // Login to user
+    // Login to admin
 
-    public function loginUser(LoginUserRequest $request){
+    public function loginAdmin(LoginAdminRequest $request){
         try {
                 
-            $account = Account::where('username', $request->username)->first();
+            $admin = Account::where('username', $request->username)->first();
 
             return response()->json([
                 'success' => true,
-                'message' => 'User Logged In Successfully.',
+                'message' => 'Admin Logged In Successfully.',
                 'data' => [
-                    'token' => $account->createToken("API TOKEN")->plainTextToken,
-                    'user'=> $account,
+                    'token' => $admin->createToken("API TOKEN")->plainTextToken,
+                    'admin'=> $admin,
                 ],
             ], 200);
             
