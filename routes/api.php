@@ -50,13 +50,13 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function () {
         
         // Get the list of celestials and relavent celestials
-        Route::resources('celestials', CelestialController::class);
+        Route::apiResource('celestials', CelestialController::class);
 
         // Get the list of docking stations and relavent docking stations
-        Route::resources('celestials.docking-stations', DockingStationController::class);
+        Route::apiResource('celestials.docking-stations', DockingStationController::class);
 
         // Get the list of gates and relavent celestials
-        Route::resources('docking-stations.docking-stations', GateController::class);
+        Route::apiResource('docking-stations.gates', GateController::class);
     });
 
 });
