@@ -8,14 +8,25 @@ Make shure to check whether you have the required softwares and libraries mentio
 2. php-nts ( 8.1 or greater )
 3. mysql ( 8.0 or greater )
 4. composer
-5. laravel installer installed ( optional )
+5. git
+6. laravel installer installed ( optional )
 
-## Autorun
+## Autorun setup
 
-Run the `autorun.sh` inside the root folder.
+Run the `setup.sh` inside the root folder.
 
 ```
-sudo ./autorun.sh
+sudo ./setup.sh
+```
+or
+
+```
+sh ./setup.sh
+```
+or
+
+```
+bash ./setup.sh
 ```
 
 ## Manual Installation
@@ -34,16 +45,18 @@ git clone https://github.com/kodecosmo/kode-cosmovoyage-api.git
 cd kode-cosmovoyage-api
 ```
 
-### 3. Install Composer Dependencies
-
-```
-composer install
-```
-
-### 4. Create a copy of your .env file
+### 3. Create a copy of your .env file
 
 ```
 cp .env.example .env
+```
+
+### 4. Install Composer Dependencies
+
+```
+composer update
+
+composer install
 ```
 
 ### 5. Generate an app encryption key
@@ -96,6 +109,10 @@ This will ease all of your tasks by,
 7. Caching views
 8. Create an admin account.
 9. Create an user account.
+
+```
+php artisan app:install
+```
 
 ### 11. Run the API
 

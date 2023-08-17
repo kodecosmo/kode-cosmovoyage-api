@@ -4,6 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
+// Prompt components
+use function Laravel\Prompts\confirm;
+
 class Install extends Command
 {
     /**
@@ -29,9 +32,17 @@ class Install extends Command
         // Create the required the databse if not exists and the tables.
         $this->call('migrate:refresh');
 
-        // Seeding fake/dummy data
-        $this->call('db:seed');
+        $confirmed = confirm(
+            label: 'Do you want to feed fake/dummy data into the `'.config('app.name').'` API?',
+            default: false,
+        );
 
+        if($confirmed==true){
+
+            // Seeding fake/dummy data
+            $this->call('db:seed');
+        }
+        
         // Clear the configurations
         $this->call('config:clear');
         

@@ -4,7 +4,7 @@ Content :
 
 1. [Installation](./documentation/Installation.md)
     1. [Pre-requirements](./documentation/Installation.md/#pre-requirements)
-    2. [Autorun](./documentation/Installation.md/#autorun)
+    2. [Autorun setup](./documentation/Installation.md/#autorun-setup)
     2. [Manual Installation](./documentation/Installation.md/#manual-installation)
 2. [Error Codes](./documentation/Error-Codes.md)
 3. [API Reference](./documentation/API/)
