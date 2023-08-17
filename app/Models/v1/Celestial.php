@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Celestial extends Model
 {
     use HasFactory;
+
+    public static string $imageLocation = "/planets";
+    public static string $tempUnit = "C";
 }
