@@ -1,8 +1,12 @@
-## User Registration
+## Admin Registration
+
+This request can be only done by an admin. THere for you have to pre login to one of the exisitng admin account ( which will be created at the installation of the api ) and use the given `Bearer Token` for authentification.
 
 Method : `POST`
 
-URL : `http://127.0.0.1:8000/api/v1/user/register`
+URL : `http://127.0.0.1:8000/api/v1/admin/register`
+
+Authenification method : `Bearer Token`
 
 Request Body : 
 

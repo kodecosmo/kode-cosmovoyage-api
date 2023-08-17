@@ -1,8 +1,8 @@
-## User Login
+## Admin Login
 
 Method : `POST`
 
-URL : `http://127.0.0.1:8000/api/v1/user/login`
+URL : `http://127.0.0.1:8000/api/v1/admin/login`
 
 Request Body : 
 

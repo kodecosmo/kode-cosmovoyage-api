@@ -38,4 +38,10 @@ Route::prefix('v1')->group(function () {
         ->middleware('auth:sanctum')
         ->name('api.v1.profile');
 
+    // Book a Travel
+    Route::get('/book/{user_id?}', [BookingController::class, 'Book'])
+        ->whereNumber('user_id')
+        ->middleware('auth:sanctum')
+        ->name('api.v1.book');
+
 });

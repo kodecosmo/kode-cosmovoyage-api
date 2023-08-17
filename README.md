@@ -8,8 +8,12 @@ Content :
     2. [Manual Installation](./documentation/Installation.md/#manual-installation)
 2. [Error Codes](./documentation/Error-Codes.md)
 3. [API Reference](./documentation/API/)
-    1. [User Registration](./documentation/API/User-Registration.md)
-    2. [User Login](./documentation/API/User-Login.md)
+    1. [API Format](./documentation/API/API-Format.md)
+    2. [Admin Registration](./documentation/API/Admin-Registration.md)
+    3. [Admin Login](./documentation/API/Admin-Login.md)
+    2. [User Registration](./documentation/API/User-Registration.md)
+    3. [User Login](./documentation/API/User-Login.md)
+    3. [Profile Data](./documentation/API/Profile-Data.md)
 
 
 ## App Details 
