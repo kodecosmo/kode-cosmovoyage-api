@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CelestialController;
+use App\Http\Controllers\DockingStationController;
 use App\Http\Controllers\v1\AdminController;
+use App\Http\Controllers\v1\GateController;
 use App\Http\Controllers\v1\ProfileController;
 use App\Http\Controllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,26 +25,38 @@ Route::prefix('v1')->group(function () {
     // Matches The "/v1/register" URL
 
     // User login
-    Route::post('/user/login', [UserController::class, 'loginUser'])->name('api.v1.user.login');
-    Route::post('/user/register', [UserController::class, 'createUser'])->name('api.v1.user.register');
+    Route::post('user/login', [UserController::class, 'loginUser'])->name('api.v1.user.login');
+    Route::post('user/register', [UserController::class, 'createUser'])->name('api.v1.user.register');
 
     // Admin login
-    Route::post('/admin/login', [AdminController::class, 'loginAdmin'])->name('api.v1.admin.login');
+    Route::post('admin/login', [AdminController::class, 'loginAdmin'])->name('api.v1.admin.login');
 
     Route::middleware(['auth:sanctum'])->prefix('admin')->group(function () {
-        Route::post('/admin/register', [AdminController::class, 'createAdmin'])->name('api.v1.admin.register');
+        Route::post('admin/register', [AdminController::class, 'createAdmin'])->name('api.v1.admin.register');
     });
 
     // Profile Details
-    Route::get('/profile/{user_id?}', [ProfileController::class, 'profileDetails'])
+    Route::get('profile/{user_id?}', [ProfileController::class, 'profileDetails'])
         ->whereNumber('user_id')
         ->middleware('auth:sanctum')
         ->name('api.v1.profile');
 
     // Book a Travel
-    Route::get('/book/{user_id?}', [BookingController::class, 'Book'])
+    Route::get('book/{user_id?}', [BookingController::class, 'Book'])
         ->whereNumber('user_id')
         ->middleware('auth:sanctum')
         ->name('api.v1.book');
+
+    Route::middleware(['auth:sanctum'])->group(function () {
+        
+        // Get the list of celestials and relavent celestials
+        Route::resources('celestials', CelestialController::class);
+
+        // Get the list of docking stations and relavent docking stations
+        Route::resources('celestials.docking-stations', DockingStationController::class);
+
+        // Get the list of gates and relavent celestials
+        Route::resources('docking-stations.docking-stations', GateController::class);
+    });
 
 });

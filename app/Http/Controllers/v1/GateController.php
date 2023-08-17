@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Http\Requests\StoreGateRequest;
-use App\Http\Requests\UpdateGateRequest;
-use App\Models\v1\Gate;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class GateController extends Controller
 {
@@ -17,17 +16,9 @@ class GateController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreGateRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +26,7 @@ class GateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Gate $gate)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Gate $gate)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +34,7 @@ class GateController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGateRequest $request, Gate $gate)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +42,7 @@ class GateController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Gate $gate)
+    public function destroy(string $id)
     {
         //
     }

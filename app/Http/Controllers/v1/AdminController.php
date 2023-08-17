@@ -58,6 +58,8 @@ class AdminController extends Controller
                             'email' => $admin->profile->email,
                             'contact_number' => $admin->profile->contact_number,
                             'gender' => $admin->profile->gender,
+                            'updated_at' => $admin->updated_at,
+                            'created_at' => $admin->created_at,
                         ],
                     ],
                 ], 200);
@@ -104,6 +106,8 @@ class AdminController extends Controller
                         'email' => $admin->profile->email,
                         'contact_number' => $admin->profile->contact_number,
                         'gender' => $admin->profile->gender,
+                        'updated_at' => $admin->updated_at,
+                        'created_at' => $admin->created_at,
                     ],
                 ],
             ], 200);

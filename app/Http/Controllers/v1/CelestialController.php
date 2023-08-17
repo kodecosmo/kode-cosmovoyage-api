@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Http\Requests\StoreCelestialRequest;
-use App\Http\Requests\UpdateCelestialRequest;
+use App\Http\Controllers\Controller;
 use App\Models\v1\Celestial;
+use App\Models\v1\Image;
+use Illuminate\Http\Request;
 
 class CelestialController extends Controller
 {
@@ -13,54 +14,171 @@ class CelestialController extends Controller
      */
     public function index()
     {
-        //
-    }
+        try {       
+            $celestials = Celestial::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+            return response()->json([
+                'success' => true,
+                'message' => 'All celestial records.',
+                'data' => [$celestials],
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unexpected server error.',
+                'error_code' => 8,
+                /*'data' => [$th->geMessage()] */
+            ], 500);
+        }
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCelestialRequest $request)
+    public function store(Request $request)
     {
-        //
+        /* 
+        * `StoreCelestialRequest Validation`
+        * Currently validations are not working and should be integrated. 
+        */
+        if ($request->user()->tokenCan('admin')) {
+            try {       
+                $celestial = new Celestial;
+                $celestial->name = $request->name;
+                $celestial->water = $request->water;
+                $celestial->temperature = $request->temperature;
+                $celestial->flora = $request->flora;
+                $celestial->fauna = $request->fauna;
+                $celestial->habitable = $request->habitable;
+                
+                $celestial->save();
+
+                /* 
+                * Currently image upload is not working and need to be added 
+                */
+                $celestial_image = new Image();
+                $celestial_image->filename = $request->filename;
+                $celestial_image->alt = $request->alt;
+
+                $celestial->image()->save($celestial_image);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => '`'.$celestial->name.'` celestial record.',
+                    'data' => [$celestial],
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unexpected server error.',
+                    'error_code' => 9,
+                    /*'data' => [$th->geMessage()] */
+                ], 500);
+            }
+        }else{
+            abort(404);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Celestial $celestial)
+    public function show(string $id)
     {
-        //
-    }
+        try {       
+            $celestial = Celestial::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Celestial $celestial)
-    {
-        //
+            return response()->json([
+                'success' => true,
+                'message' => '`'.$celestial->name.'` celestial record.',
+                'data' => [$celestial],
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unexpected server error.',
+                'error_code' => 10,
+                /*'data' => [$th->geMessage()] */
+            ], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCelestialRequest $request, Celestial $celestial)
+    public function update(Request $request, string $id)
     {
-        //
+        /* 
+        * `UpdateCelestialRequest Validation`
+        * Currently validations are not working and should be integrated. 
+        */
+        if ($request->user()->tokenCan('admin')) {
+            try {       
+                $celestial = Celestial::find($id);
+                $celestial->name = $request->name;
+                $celestial->water = $request->water;
+                $celestial->temperature = $request->temperature;
+                $celestial->flora = $request->flora;
+                $celestial->fauna = $request->fauna;
+                $celestial->habitable = $request->habitable;
+                
+                $celestial->save();
+
+                /* 
+                * Currently image upload is not working and need to be added 
+                */
+                $celestial_image = new Image();
+                $celestial_image->filename = $request->filename;
+                $celestial_image->alt = $request->alt;
+
+                $celestial->image()->save($celestial_image);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => '`'.$celestial->name.'` celestial record.',
+                    'data' => [$celestial],
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unexpected server error.',
+                    'error_code' => 11,
+                    /*'data' => [$th->geMessage()] */
+                ], 500);
+            }
+        }else{
+            abort(404);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Celestial $celestial)
+    public function destroy(Request $request, string $id)
     {
-        //
+        /* 
+        * `DeleteCelestialRequest Validation`
+        * Currently validations are not working and should be integrated. 
+        */
+        if ($request->user()->tokenCan('admin')) {
+            try {       
+                $celestial = Celestial::destroy($id);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'celestial record deleted successfully.',
+                    /*'data' => [],*/
+                ], 200);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unexpected server error.',
+                    'error_code' => 12,
+                    /*'data' => [$th->geMessage()] */
+                ], 500);
+            }
+        }else{
+            abort(404);
+        }
     }
 }

@@ -15,6 +15,17 @@ class Celestial extends Model
     public static string $imageLocation = "/planets";
     public static string $tempUnit = "C";
 
+    // The attributes that are mass assignable.
+
+    protected $fillable = [
+        'name',
+        'water',
+        'temperature',
+        'flora',
+        'fauna',
+        'habitable',
+    ];
+
     public function image(): HasOne
     {
         return $this->hasOne(Image::class);

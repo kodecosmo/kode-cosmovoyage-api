@@ -54,6 +54,8 @@ class UserController extends Controller
                         'email' => $user->profile->email,
                         'contact_number' => $user->profile->contact_number,
                         'gender' => $user->profile->gender,
+                        'updated_at' => $user->updated_at,
+                        'created_at' => $user->created_at,
                     ],
                 ],
             ], 200);
@@ -90,6 +92,8 @@ class UserController extends Controller
                         'email' => $user->profile->email,
                         'contact_number' => $user->profile->contact_number,
                         'gender' => $user->profile->gender,
+                        'updated_at' => $user->updated_at,
+                        'created_at' => $user->created_at,
                     ],
                 ],
             ], 200);
