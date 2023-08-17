@@ -8,29 +8,26 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Account extends Authenticatable
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    // ENUM values of the users->type table field.
+
+    public static string $user_enum = "user";
+    public static string $admin_enum = "admin";
+
+    // The attributes that are mass assignable.
+
     protected $fillable = [
         'username',
-        'email',
         'password',
-        'first_name',
-        'last_name',
-        'contact_number',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
+    // The attributes that should be hidden for serialization.
+    
     protected $hidden = [
         'password',
         'remember_token',
@@ -42,7 +39,12 @@ class Account extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

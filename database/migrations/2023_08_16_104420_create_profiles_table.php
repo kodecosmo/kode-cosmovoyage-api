@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 // Models
-use App\Models\v1\Account;
+use App\Models\v1\User;
 
 return new class extends Migration
 {
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('contact_number');
             $table->string('email');
             $table->enum('gender', ['male', 'female', 'other', 'rather_not_say']);
-            $table->foreignIdFor(Account::class);
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }

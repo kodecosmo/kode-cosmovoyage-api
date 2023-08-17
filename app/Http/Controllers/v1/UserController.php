@@ -4,13 +4,15 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 // Requests
 use App\Http\Requests\v1\CreateUserRequest;
 use App\Http\Requests\v1\LoginUserRequest;
 
 // Models
-use App\Models\v1\Account;
+use App\Models\v1\User;
+use App\Models\v1\Profile;
 
 class UserController extends Controller
 {
@@ -20,19 +22,39 @@ class UserController extends Controller
     {
         try {
                 
-            $account = new Account;
+            $user = new User;
 
-            $account->username = $request->username;
-            $account->password = Hash::make($request->password);
+            $user->username = $request->username;
+            $user->password = Hash::make($request->password);
+            $user->type = User::$user_enum;
 
-            $account->save();
+            $user->save();
+
+            $profile = new Profile();
+            $profile->first_name = $request->first_name;
+            $profile->last_name = $request->last_name;
+            $profile->contact_number = $request->contact_number;
+            $profile->email = $request->email;
+            $profile->gender = $request->gender;
+
+            $user->profile()->save($profile);
 
             return response()->json([
                 'success' => true,
                 'message' => 'User Created Successfully.',
                 'data' => [
-                    'token' => $account->createToken("API TOKEN")->plainTextToken,
-                    'user'=> $account,
+                    'token' => $user->createToken("API TOKEN", ['user'])->plainTextToken,
+                    'user'=> [
+                        'id' => $user->id,
+                        'username' => $user->username,
+                        'type' => $user->type,
+                        'profile_id' => $user->profile->id,
+                        'first_name' => $user->profile->first_name,
+                        'last_name' => $user->profile->last_name,
+                        'email' => $user->profile->email,
+                        'contact_number' => $user->profile->contact_number,
+                        'gender' => $user->profile->gender,
+                    ],
                 ],
             ], 200);
             
@@ -40,8 +62,8 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Unexpected server error.',
-                'error_code' => 001,
-                'data' => [],
+                'error_code' => 1,
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
     }
@@ -51,14 +73,24 @@ class UserController extends Controller
     public function loginUser(LoginUserRequest $request){
         try {
                 
-            $account = Account::where('username', $request->username)->first();
+            $user = User::where('username', $request->username)->first();
 
             return response()->json([
                 'success' => true,
                 'message' => 'User Logged In Successfully.',
                 'data' => [
-                    'token' => $account->createToken("API TOKEN")->plainTextToken,
-                    'user'=> $account,
+                    'token' => $user->createToken("API TOKEN", ['user'])->plainTextToken,
+                    'user'=> [
+                        'id' => $user->id,
+                        'username' => $user->username,
+                        'type' => $user->type,
+                        'profile_id' => $user->profile->id,
+                        'first_name' => $user->profile->first_name,
+                        'last_name' => $user->profile->last_name,
+                        'email' => $user->profile->email,
+                        'contact_number' => $user->profile->contact_number,
+                        'gender' => $user->profile->gender,
+                    ],
                 ],
             ], 200);
             
@@ -66,8 +98,8 @@ class UserController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Unexpected server error.',
-                'error_code' => 001,
-                'data' => [],
+                'error_code' => 2,
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
 

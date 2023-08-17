@@ -23,6 +23,11 @@ class CreateUserRequest extends FormRequest
          return [
             "username" => ['required', 'alpha_dash:ascii', 'unique:users', 'max:255'],   
             "password" => ['required', 'confirmed', Password::min(8)->letters()->numbers()->mixedCase()->symbols()],
+            "first_name" => ['required', 'string', 'min:1'],
+            "last_name" => ['required', 'string', 'min:1'],
+            "contact_number" => ['required', 'string', 'min:10'],
+            "email" => ['required', 'email'],
+            "gender" => ['required', 'in:male,female,other,rather_not_say'],
         ];
     }
 
