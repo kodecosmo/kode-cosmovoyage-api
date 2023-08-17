@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('name');
             $table->enum('status', ['open', 'closed', 'decommissioned']);
             $table->foreignIdFor(DockingStation::class);
-            $table->foreignIdFor(Image::class);
             $table->timestamps();
         });
     }
