@@ -19,4 +19,9 @@ class Image extends Model
     {
         return $this->belongsTo(DockingStation::class);
     }
+
+    public function serviceProvider(): BelongsTo
+    {
+        return $this->belongsTo(ServiceProvider::class);
+    }
 }
