@@ -5,6 +5,7 @@ use App\Http\Controllers\v1\DockingStationController;
 use App\Http\Controllers\v1\AdminController;
 use App\Http\Controllers\v1\GateController;
 use App\Http\Controllers\v1\ProfileController;
+use App\Http\Controllers\v1\ServiceProviderController;
 use App\Http\Controllers\v1\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,17 +53,30 @@ Route::prefix('v1')->group(function () {
         // Get the list of celestials and relavent celestials
         Route::apiResource('celestials', CelestialController::class);
 
+        /* --------------------------------------------------------------------------- */
 
-    // Get the list of docking stations inside relavent celestial
-    Route::get('celestials/{celestial_id?}/docking-stations', [DockingStationController::class, 'celestialDockingStations'])
-        ->whereNumber('celestial_id')
-        ->name('api.v1.celestial-x.docking-stations');
+        // Get the list of docking stations inside relavent celestial
+        Route::get('celestials/{celestial_id?}/docking-stations', [DockingStationController::class, 'celestialDockingStations'])
+            ->whereNumber('celestial_id')
+            ->name('api.v1.celestial-x.docking-stations');
 
         // Get the list of docking stations and relavent docking stations
         Route::apiResource('docking-stations', DockingStationController::class);
 
-        // Get the list of gates and relavent celestials
-        Route::apiResource('docking-stations.gates', GateController::class);
+        /* --------------------------------------------------------------------------- */
+
+        // Get the list of gates inside relavent docking-stations
+        Route::get('docking-stations/{docking_stations_id?}/gates', [GateController::class, 'dockingStationGates'])
+            ->whereNumber('docking_stations_id')
+            ->name('api.v1.docking-stations-x.gates');
+
+        // Get the list of gates and relavent gates
+        Route::apiResource('gates', GateController::class);
+
+        /* --------------------------------------------------------------------------- */
+
+        // Get the list of service-providers
+        Route::apiResource('service-providers', ServiceProviderController::class);
     });
 
 });

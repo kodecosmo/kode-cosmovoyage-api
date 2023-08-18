@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Http\Requests\StoreServiceProviderRequest;
-use App\Http\Requests\UpdateServiceProviderRequest;
-use App\Models\v1\ServiceProvider;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ServiceProviderController extends Controller
 {
@@ -17,17 +16,9 @@ class ServiceProviderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreServiceProviderRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,15 +26,7 @@ class ServiceProviderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ServiceProvider $serviceProvider)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ServiceProvider $serviceProvider)
+    public function show(string $id)
     {
         //
     }
@@ -51,7 +34,7 @@ class ServiceProviderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateServiceProviderRequest $request, ServiceProvider $serviceProvider)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +42,7 @@ class ServiceProviderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ServiceProvider $serviceProvider)
+    public function destroy(string $id)
     {
         //
     }
