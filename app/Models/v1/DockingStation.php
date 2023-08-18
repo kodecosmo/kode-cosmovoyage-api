@@ -15,9 +15,9 @@ class DockingStation extends Model
     // relative to the root/storage/app/public/
     public static string $imageLocation = "/docking-stations";
 
-    public function image(): HasOne
+    public function image(): BelongsTo
     {
-        return $this->hasOne(Image::class);
+        return $this->belongsTo(Image::class);
     }
     
     public function celestial(): BelongsTo

@@ -3,7 +3,7 @@
 namespace App\Models\v1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class ServiceProvider extends Model
@@ -13,8 +13,8 @@ class ServiceProvider extends Model
     // relative to the root/storage/app/public/
     public static string $imageLocation = "/service-providers";
 
-    public function image(): HasOne
+    public function image(): BelongsTo
     {
-        return $this->hasOne(Image::class);
+        return $this->belongsTo(Image::class);
     }
 }

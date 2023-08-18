@@ -3,25 +3,25 @@
 namespace App\Models\v1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
 {
     use HasFactory;
 
-    public function celestial(): BelongsTo
+    public function celestial(): HasOne
     {
-        return $this->belongsTo(Celestial::class);
+        return $this->hasOne(Celestial::class);
     }
 
-    public function dockingStation(): BelongsTo
+    public function dockingStation(): HasOne
     {
-        return $this->belongsTo(DockingStation::class);
+        return $this->hasOne(DockingStation::class);
     }
 
-    public function serviceProvider(): BelongsTo
+    public function serviceProvider(): HasOne
     {
-        return $this->belongsTo(ServiceProvider::class);
+        return $this->hasOne(ServiceProvider::class);
     }
 }
