@@ -1,5 +1,15 @@
 # Error codes
 
+### Standard error codes.
+
+401 : Unauthenticated.
+
+404 : Not found.
+
+500 : Internal server error.
+
+### Custom error codes.
+
 1 : User registration error - This may be due to an error in the backend/api.
 
 2 : User login error - This may be due to an error in the backend/api.

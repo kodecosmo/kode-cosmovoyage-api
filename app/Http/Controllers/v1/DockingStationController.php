@@ -18,7 +18,7 @@ class DockingStationController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'All docking station records inside the given celestial.',
-                'data' => [$docking_stations],
+                'data' => $docking_stations,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -41,7 +41,7 @@ class DockingStationController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'All docking station records.',
-                'data' => [$docking_stations],
+                'data' => $docking_stations,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -82,7 +82,7 @@ class DockingStationController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => '`'.$docking_station->name.'` docking station record.',
-                    'data' => [$docking_station],
+                    'data' => $docking_station,
                 ], 200);
             } catch (\Throwable $th) {
                 return response()->json([
@@ -93,7 +93,12 @@ class DockingStationController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 
@@ -108,7 +113,7 @@ class DockingStationController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => '`'.$docking_station->name.'` docking station record.',
-                'data' => [$docking_station],
+                'data' => $docking_station,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -149,7 +154,7 @@ class DockingStationController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => '`'.$docking_station->name.'` docking station record.',
-                    'data' => [$docking_station],
+                    'data' => $docking_station,
                 ], 200);
             } catch (\Throwable $th) {
                 return response()->json([
@@ -160,7 +165,12 @@ class DockingStationController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 
@@ -193,7 +203,12 @@ class DockingStationController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 }

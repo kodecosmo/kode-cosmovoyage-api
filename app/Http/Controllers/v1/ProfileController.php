@@ -29,31 +29,25 @@ class ProfileController extends Controller
                         return response()->json([
                             'success' => true,
                             'message' => 'User `'.$user->id.'` profile details',
-                            'data' => [
-                                'id' => $user->profile->id,
-                                'first_name' => $user->profile->first_name,
-                                'last_name' => $user->profile->last_name,
-                                'email' => $user->profile->email,
-                                'contact_number' => $user->profile->contact_number,
-                                'gender' => $user->profile->gender,
-                                'user_id' => $user->id,
-                            ],
+                            'data' => $user->profile,
                         ], 200);
                     }else{
                     
-                        abort(404);   
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Not Found.',
+                            'error_code' => 404,
+                            /*'data' => [$th->getMessage()] */
+                        ], 404);   
                     }
                 }else{
                     
-                    abort(404);
-                    /*
                     return response()->json([
                         'success' => false,
-                        'message' => 'Request not found.',
-                        'error_code' => 6, */
-                        /*'data' => [$th->getMessage()] */ /*
-                    ], 404); 
-                    */
+                        'message' => 'Not Found.',
+                        'error_code' => 404,
+                        /*'data' => [$th->getMessage()] */
+                    ], 404);
                 }
 
             }else{
@@ -61,15 +55,7 @@ class ProfileController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'User `'.$user->id.'` profile details',
-                    'data' => [
-                        'id' => $user->profile->id,
-                        'first_name' => $user->profile->first_name,
-                        'last_name' => $user->profile->last_name,
-                        'email' => $user->profile->email,
-                        'contact_number' => $user->profile->contact_number,
-                        'gender' => $user->profile->gender,
-                        'user_id' => $user->id,
-                    ],
+                    'data' => $user->profile,
                 ], 200);
             }
 

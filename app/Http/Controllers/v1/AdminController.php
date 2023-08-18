@@ -50,7 +50,7 @@ class AdminController extends Controller
                     'message' => 'Admin Created Successfully.',
                     'data' => [
                         'token' => $admin->createToken("API TOKEN", ['admin'])->plainTextToken,
-                        'admin'=> [$admin],
+                        'admin'=> $admin,
                     ],
                 ], 200);
 
@@ -86,7 +86,7 @@ class AdminController extends Controller
                 'message' => 'Admin Logged In Successfully.',
                 'data' => [
                     'token' => $admin->createToken("API TOKEN", ['admin'])->plainTextToken,
-                    'admin'=> [$admin],
+                    'admin'=> $admin,
                 ],
             ], 200);
             

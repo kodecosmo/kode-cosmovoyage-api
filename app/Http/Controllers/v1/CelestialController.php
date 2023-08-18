@@ -20,7 +20,7 @@ class CelestialController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'All celestial records.',
-                'data' => [$celestials],
+                'data' => $celestials,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -65,7 +65,7 @@ class CelestialController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => '`'.$celestial->name.'` celestial record.',
-                    'data' => [$celestial],
+                    'data' => $celestial,
                 ], 200);
             } catch (\Throwable $th) {
                 return response()->json([
@@ -76,7 +76,12 @@ class CelestialController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 
@@ -91,7 +96,7 @@ class CelestialController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => '`'.$celestial->name.'` celestial record.',
-                'data' => [$celestial],
+                'data' => $celestial,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -136,7 +141,7 @@ class CelestialController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => '`'.$celestial->name.'` celestial record.',
-                    'data' => [$celestial],
+                    'data' => $celestial,
                 ], 200);
             } catch (\Throwable $th) {
                 return response()->json([
@@ -147,7 +152,12 @@ class CelestialController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 
@@ -180,7 +190,12 @@ class CelestialController extends Controller
                 ], 500);
             }
         }else{
-            abort(404);
+            return response()->json([
+                'success' => false,
+                'message' => 'Not Found.',
+                'error_code' => 404,
+                /*'data' => [$th->getMessage()] */
+            ], 404);
         }
     }
 }
