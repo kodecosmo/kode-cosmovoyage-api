@@ -15,7 +15,7 @@ class CelestialController extends Controller
     public function index()
     {
         try {       
-            $celestials = Celestial::all();
+            $celestials = Celestial::with('image')->get();
 
             return response()->json([
                 'success' => true,
@@ -27,7 +27,7 @@ class CelestialController extends Controller
                 'success' => false,
                 'message' => 'Unexpected server error.',
                 'error_code' => 8,
-                /*'data' => [$th->geMessage()] */
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
     }
@@ -43,15 +43,6 @@ class CelestialController extends Controller
         */
         if ($request->user()->tokenCan('admin')) {
             try {       
-                $celestial = new Celestial;
-                $celestial->name = $request->name;
-                $celestial->water = $request->water;
-                $celestial->temperature = $request->temperature;
-                $celestial->flora = $request->flora;
-                $celestial->fauna = $request->fauna;
-                $celestial->habitable = $request->habitable;
-                
-                $celestial->save();
 
                 /* 
                 * Currently image upload is not working and need to be added 
@@ -59,8 +50,17 @@ class CelestialController extends Controller
                 $celestial_image = new Image();
                 $celestial_image->filename = $request->filename;
                 $celestial_image->alt = $request->alt;
-
-                $celestial->image()->save($celestial_image);
+                $celestial_image->save();
+                        
+                $celestial = new Celestial;
+                $celestial->name = $request->name;
+                $celestial->water = $request->water;
+                $celestial->temperature = $request->temperature;
+                $celestial->flora = $request->flora;
+                $celestial->fauna = $request->fauna;
+                $celestial->habitable = $request->habitable;
+                $celestial->image()->associate($celestial_image);
+                $celestial->save();
 
                 return response()->json([
                     'success' => true,
@@ -72,7 +72,7 @@ class CelestialController extends Controller
                     'success' => false,
                     'message' => 'Unexpected server error.',
                     'error_code' => 9,
-                    /*'data' => [$th->geMessage()] */
+                    /*'data' => [$th->getMessage()] */
                 ], 500);
             }
         }else{
@@ -86,7 +86,7 @@ class CelestialController extends Controller
     public function show(string $id)
     {
         try {       
-            $celestial = Celestial::find($id);
+            $celestial = Celestial::with('image')->whereId($id)->first();
 
             return response()->json([
                 'success' => true,
@@ -98,7 +98,7 @@ class CelestialController extends Controller
                 'success' => false,
                 'message' => 'Unexpected server error.',
                 'error_code' => 10,
-                /*'data' => [$th->geMessage()] */
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
     }
@@ -113,7 +113,16 @@ class CelestialController extends Controller
         * Currently validations are not working and should be integrated. 
         */
         if ($request->user()->tokenCan('admin')) {
-            try {       
+            try {     
+                
+                /* 
+                * Currently image upload is not working and need to be added 
+                */
+                $celestial_image = new Image();
+                $celestial_image->filename = $request->filename;
+                $celestial_image->alt = $request->alt;
+                $celestial_image->save();
+
                 $celestial = Celestial::find($id);
                 $celestial->name = $request->name;
                 $celestial->water = $request->water;
@@ -121,17 +130,8 @@ class CelestialController extends Controller
                 $celestial->flora = $request->flora;
                 $celestial->fauna = $request->fauna;
                 $celestial->habitable = $request->habitable;
-                
+                $celestial->image()->associate($celestial_image);
                 $celestial->save();
-
-                /* 
-                * Currently image upload is not working and need to be added 
-                */
-                $celestial_image = new Image();
-                $celestial_image->filename = $request->filename;
-                $celestial_image->alt = $request->alt;
-
-                $celestial->image()->save($celestial_image);
 
                 return response()->json([
                     'success' => true,
@@ -143,7 +143,7 @@ class CelestialController extends Controller
                     'success' => false,
                     'message' => 'Unexpected server error.',
                     'error_code' => 11,
-                    /*'data' => [$th->geMessage()] */
+                    /*'data' => [$th->getMessage()] */
                 ], 500);
             }
         }else{
@@ -162,7 +162,9 @@ class CelestialController extends Controller
         */
         if ($request->user()->tokenCan('admin')) {
             try {       
-                $celestial = Celestial::destroy($id);
+                $celestial = Celestial::find($id);
+                $celestial->delete();
+                $celestial_image = Image::destroy($celestial->image_id);
 
                 return response()->json([
                     'success' => true,
@@ -174,7 +176,7 @@ class CelestialController extends Controller
                     'success' => false,
                     'message' => 'Unexpected server error.',
                     'error_code' => 12,
-                    /*'data' => [$th->geMessage()] */
+                    /*'data' => [$th->getMessage()] */
                 ], 500);
             }
         }else{

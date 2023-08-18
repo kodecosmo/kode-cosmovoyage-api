@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\CelestialController;
-use App\Http\Controllers\DockingStationController;
+use App\Http\Controllers\v1\CelestialController;
+use App\Http\Controllers\v1\DockingStationController;
 use App\Http\Controllers\v1\AdminController;
 use App\Http\Controllers\v1\GateController;
 use App\Http\Controllers\v1\ProfileController;
@@ -31,7 +31,7 @@ Route::prefix('v1')->group(function () {
     // Admin login
     Route::post('admin/login', [AdminController::class, 'loginAdmin'])->name('api.v1.admin.login');
 
-    Route::middleware(['auth:sanctum'])->prefix('admin')->group(function () {
+    Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
         Route::post('admin/register', [AdminController::class, 'createAdmin'])->name('api.v1.admin.register');
     });
 
@@ -47,13 +47,19 @@ Route::prefix('v1')->group(function () {
         ->middleware('auth:sanctum')
         ->name('api.v1.book');
 
-    Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
         
         // Get the list of celestials and relavent celestials
         Route::apiResource('celestials', CelestialController::class);
 
+
+    // Get the list of docking stations inside relavent celestial
+    Route::get('celestials/{celestial_id?}/docking-stations', [DockingStationController::class, 'celestialDockingStations'])
+        ->whereNumber('celestial_id')
+        ->name('api.v1.celestial-x.docking-stations');
+
         // Get the list of docking stations and relavent docking stations
-        Route::apiResource('celestials.docking-stations', DockingStationController::class);
+        Route::apiResource('docking-stations', DockingStationController::class);
 
         // Get the list of gates and relavent celestials
         Route::apiResource('docking-stations.gates', GateController::class);

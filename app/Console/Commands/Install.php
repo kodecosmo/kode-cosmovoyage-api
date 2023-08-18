@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 
 // Prompt components
 use function Laravel\Prompts\confirm;
+use function Laravel\Prompts\info;
 
 class Install extends Command
 {
@@ -43,23 +44,37 @@ class Install extends Command
             $this->call('db:seed');
         }
         
+        info('Clear configurations.');
+
         // Clear the configurations
         $this->call('config:clear');
         
+        info('Cache configurations.');
+
         // Caching configurations
         $this->call('config:cache');
+        
+        info('Cache events.');
         
         // Caching events
         $this->call('event:cache');
         
+        info('Cache routes.');
+        
         // Caching routes
         $this->call('route:cache');
+        
+        info('Cache views.');
         
         // Caching views
         $this->call('view:cache');
         
+        info('Creating an admin account.');
+        
         // Create an admin account
         $this->call('app:create-admin-account');
+        
+        info('Creating an user account.');
 
         // Create an user account
         $this->call('app:create-user-account');

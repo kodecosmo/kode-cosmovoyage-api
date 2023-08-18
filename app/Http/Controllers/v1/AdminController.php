@@ -43,24 +43,14 @@ class AdminController extends Controller
 
                 $admin->profile()->save($profile);
 
+                $admin = User::with('profile')->whereId($admin->id)->first();
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Admin Created Successfully.',
                     'data' => [
                         'token' => $admin->createToken("API TOKEN", ['admin'])->plainTextToken,
-                        'admin'=> [
-                            'id' => $admin->id,
-                            'username' => $admin->username,
-                            'type' => $admin->type,
-                            'profile_id' => $admin->profile->id,
-                            'first_name' => $admin->profile->first_name,
-                            'last_name' => $admin->profile->last_name,
-                            'email' => $admin->profile->email,
-                            'contact_number' => $admin->profile->contact_number,
-                            'gender' => $admin->profile->gender,
-                            'updated_at' => $admin->updated_at,
-                            'created_at' => $admin->created_at,
-                        ],
+                        'admin'=> [$admin],
                     ],
                 ], 200);
 
@@ -89,26 +79,14 @@ class AdminController extends Controller
     public function loginAdmin(LoginAdminRequest $request){
         try {
                 
-            $admin = User::where('username', $request->username)->first();
+            $admin = User::with('profile')->where('username', $request->username)->first();
 
             return response()->json([
                 'success' => true,
                 'message' => 'Admin Logged In Successfully.',
                 'data' => [
                     'token' => $admin->createToken("API TOKEN", ['admin'])->plainTextToken,
-                    'admin'=> [
-                        'id' => $admin->id,
-                        'username' => $admin->username,
-                        'type' => $admin->type,
-                        'profile_id' => $admin->profile->id,
-                        'first_name' => $admin->profile->first_name,
-                        'last_name' => $admin->profile->last_name,
-                        'email' => $admin->profile->email,
-                        'contact_number' => $admin->profile->contact_number,
-                        'gender' => $admin->profile->gender,
-                        'updated_at' => $admin->updated_at,
-                        'created_at' => $admin->created_at,
-                    ],
+                    'admin'=> [$admin],
                 ],
             ], 200);
             
@@ -117,7 +95,7 @@ class AdminController extends Controller
                 'success' => false,
                 'message' => 'Unexpected server error.',
                 'error_code' => 5,
-                /*'data' => [$th->geMessage()] */
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
 

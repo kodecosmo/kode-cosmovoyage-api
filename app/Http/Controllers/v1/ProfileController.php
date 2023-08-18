@@ -78,7 +78,7 @@ class ProfileController extends Controller
                 'success' => false,
                 'message' => 'Unexpected server error.',
                 'error_code' => 7,
-                /*'data' => [$th->geMessage()] */
+                /*'data' => [$th->getMessage()] */
             ], 500);
         }
 
