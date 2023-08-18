@@ -68,15 +68,15 @@ class DockingStationController extends Controller
                 /* 
                 * Currently image upload is not working and need to be added 
                 */
-                $docking_station_iamge = new Image();
-                $docking_station_iamge->filename = $request->filename;
-                $docking_station_iamge->alt = $request->alt;
-                $docking_station_iamge->save();
+                $docking_station_image = new Image();
+                $docking_station_image->filename = $request->filename;
+                $docking_station_image->alt = $request->alt;
+                $docking_station_image->save();
      
                 $docking_station = new DockingStation;
                 $docking_station->name = $request->name;
                 $docking_station->status = $request->status;
-                $docking_station->image()->associate($docking_station_iamge);
+                $docking_station->image()->associate($docking_station_image);
                 $docking_station->save();
 
                 return response()->json([
