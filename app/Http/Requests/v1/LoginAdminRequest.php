@@ -26,15 +26,32 @@ class LoginAdminRequest extends FormRequest
     {
         return [
             "username" => ['required', 'exists:users,username', function (string $attribute, mixed $value, Closure $fail)  {
-                if (User::where('username', $this->username)->where('type', User::$admin_enum)->first()->doesntExist()) {
-                    return $fail(__('Unautherized access.'));
+                try {
+                    if (User::where('username', $this->username)->where('type', User::$admin_enum)->first()->doesntExist()) {
+                        return $fail(__('Unautherized access.'));
+                    }
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
             }],   
             "password" => ['required', function (string $attribute, mixed $value, Closure $fail)  {
-                if (!Hash::check($value, User::where('username', $this->username)->first()->password)) {
-                    return $fail(__('The password is incorrect.'));
+                try {
+                    if (!Hash::check($value, User::where('username', $this->username)->first()->password)) {
+                        return $fail(__('The password is incorrect.'));
+                    }
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
             }],
+        ];
+    }
+
+    // Custom error message
+    
+    public function messages(): array
+    {
+        return [
+            'username.exists' => 'Username do not exists.',
         ];
     }
 

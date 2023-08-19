@@ -27,10 +27,23 @@ class LoginUserRequest extends FormRequest
         return [
             "username" => ['required', 'exists:users,username'],   
             "password" => ['required', function (string $attribute, mixed $value, Closure $fail)  {
-                if (!Hash::check($value, User::where('username', $this->username)->first()->password)) {
-                    return $fail(__('The password is incorrect.'));
+                try {   
+                    if (!Hash::check($value, User::where('username', $this->username)->first()->password)) {
+                        return $fail(__('The password is incorrect.'));
+                    }
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
             }],
+        ];
+    }
+
+    // Custom error message
+    
+    public function messages(): array
+    {
+        return [
+            'username.exists' => 'Username do not exists.',
         ];
     }
 
