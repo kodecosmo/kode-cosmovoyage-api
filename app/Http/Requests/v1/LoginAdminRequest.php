@@ -51,7 +51,7 @@ class LoginAdminRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'username.exists' => 'Username do not exists.',
+            'username.exists' => 'Admin username do not exists.',
         ];
     }
 
