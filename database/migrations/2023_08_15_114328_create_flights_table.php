@@ -26,7 +26,13 @@ return new class extends Migration
                     user_id_3: [ seat_number_1, seat_number_2, seat_number_3 ],   
                 } 
             */
+            $table->dateTime('departure');
+            $table->enum('status', ['preparing', 'loading', 'traveling', 'emergency_land', 'canceled']);
+            $table->unsignedBigInteger('landed_gate_id')->unsigned()->nullable();
+            $table->dateTime('landed_date_time')->nullable();
             $table->timestamps();
+
+            $table->foreign('landed_gate_id')->references('id')->on('gates');
         });
     }
 

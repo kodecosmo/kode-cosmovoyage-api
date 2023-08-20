@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('model');
             $table->string('registration_number');
-            $table->enum('status', ['open', 'closed', 'decommissioned']);
+            $table->integer('number_of_seats');
+            $table->enum('status', ['active', 'repairing', 'hanger', 'decommissioned']);
             $table->foreignIdFor(ServiceProvider::class);
             $table->timestamps();
         });

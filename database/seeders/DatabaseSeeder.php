@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CelestialSeeder::class,
             ServiceProviderSeeder::class,
+            VoyageSeeder::class,
+            SpaceShipSeeder::class,
             FlightSeeder::class,
         ]);
     }

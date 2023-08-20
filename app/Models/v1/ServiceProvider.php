@@ -4,6 +4,7 @@ namespace App\Models\v1;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class ServiceProvider extends Model
@@ -16,5 +17,10 @@ class ServiceProvider extends Model
     public function image(): BelongsTo
     {
         return $this->belongsTo(Image::class);
+    }
+
+    public function spaceShips(): HasMany
+    {
+        return $this->hasMany(SpaceShip::class);
     }
 }
