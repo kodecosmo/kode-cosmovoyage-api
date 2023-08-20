@@ -1,4 +1,4 @@
-# <img src="./public/favicon.png" alt="CosmoVoyage Logo" width="25px" > CosmoVoyage - API
+# CosmoVoyage - API
 
 This is the Backend of the CosmoVoyage web app. This is made with compatible for both web and mobile apps.
 
