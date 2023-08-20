@@ -3,10 +3,12 @@
 use App\Http\Controllers\v1\CelestialController;
 use App\Http\Controllers\v1\DockingStationController;
 use App\Http\Controllers\v1\AdminController;
+use App\Http\Controllers\v1\FlightController;
 use App\Http\Controllers\v1\GateController;
 use App\Http\Controllers\v1\ProfileController;
 use App\Http\Controllers\v1\ServiceProviderController;
 use App\Http\Controllers\v1\UserController;
+use App\Http\Controllers\v1\VoyageController;
 use Illuminate\Support\Facades\Route;
 
 // Models
@@ -56,7 +58,7 @@ Route::prefix('v1')->group(function () {
         /* --------------------------------------------------------------------------- */
 
         // Get the list of docking stations inside relavent celestial
-        Route::get('celestials/{celestial_id?}/docking-stations', [DockingStationController::class, 'celestialDockingStations'])
+        Route::get('celestials/{celestial_id}/docking-stations', [DockingStationController::class, 'celestialDockingStations'])
             ->whereNumber('celestial_id')
             ->name('api.v1.celestial-x.docking-stations');
 
@@ -66,12 +68,22 @@ Route::prefix('v1')->group(function () {
         /* --------------------------------------------------------------------------- */
 
         // Get the list of gates inside relavent docking-stations
-        Route::get('docking-stations/{docking_stations_id?}/gates', [GateController::class, 'dockingStationGates'])
-            ->whereNumber('docking_stations_id')
+        Route::get('docking-stations/{docking_station_id}/gates', [GateController::class, 'dockingStationGates'])
+            ->whereNumber('docking_station_id')
             ->name('api.v1.docking-stations-x.gates');
 
         // Get the list of gates and relavent gates
         Route::apiResource('gates', GateController::class);
+
+        /* --------------------------------------------------------------------------- */
+
+        // Get the list of flights available for booking.
+        Route::apiResource('flights', FlightController::class);
+
+        /* --------------------------------------------------------------------------- */
+
+        // Get the list of voyages.
+        Route::apiResource('voyages', VoyageController::class);
 
         /* --------------------------------------------------------------------------- */
 

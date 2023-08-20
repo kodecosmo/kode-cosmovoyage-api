@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\v1\StoreFlightRequest;
-use App\Http\Requests\v1\UpdateFlightRequest;
-use App\Models\v1\Flight;
+use App\Http\Requests\v1\StoreVoyageRequest;
+use App\Http\Requests\v1\UpdateVoyageRequest;
+use App\Models\v1\Voyage;
 
-class FlightController extends Controller
+class VoyageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +15,12 @@ class FlightController extends Controller
     public function index()
     {
         try {       
-            $flights = Flight::with('spaceShip')->get();
+            $voyages = Voyage::all();
 
             return response()->json([
                 'success' => true,
-                'message' => 'All flight records.',
-                'data' => $flights,
+                'message' => 'All voyage records.',
+                'data' => $voyages,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -35,7 +35,7 @@ class FlightController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFlightRequest $request)
+    public function store(StoreVoyageRequest $request)
     {
         //
     }
@@ -43,7 +43,7 @@ class FlightController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Flight $flight)
+    public function show(Voyage $voyage)
     {
         //
     }
@@ -51,7 +51,7 @@ class FlightController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFlightRequest $request, Flight $flight)
+    public function update(UpdateVoyageRequest $request, Voyage $voyage)
     {
         //
     }
@@ -59,7 +59,7 @@ class FlightController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Flight $flight)
+    public function destroy(Voyage $voyage)
     {
         //
     }
