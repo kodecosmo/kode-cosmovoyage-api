@@ -1,5 +1,7 @@
 # <img src="./public/favicon.png" alt="CosmoVoyage Logo" width="25px" > CosmoVoyage - API
 
+This is the Backend of the CosmoVoyage web app. This is made with compatible for both web and mobile apps.
+
 Content :
 
 1. [Installation](./documentation/Installation.md)
@@ -11,9 +13,15 @@ Content :
     1. [API Format](./documentation/API/API-Format.md)
     2. [Admin Registration](./documentation/API/Admin-Registration.md)
     3. [Admin Login](./documentation/API/Admin-Login.md)
-    2. [User Registration](./documentation/API/User-Registration.md)
-    3. [User Login](./documentation/API/User-Login.md)
-    3. [Profile Data](./documentation/API/Profile-Data.md)
+    4. [User Registration](./documentation/API/User-Registration.md)
+    5. [User Login](./documentation/API/User-Login.md)
+    6. [Profile Data](./documentation/API/Profile-Data.md)
+    7. [Celestials](./documentation/API/Celestials.md)
+    8. [Docking Stations](./documentation/API/Docking-Stations.md)
+    9. [Gates](./documentation/API/Gates.md)
+    10. [Voyages](./documentation/API/Voyages.md)
+    11. [Service Providers](./documentation/API/Service-Providers.md)
+    12. [Flights](./documentation/API/Flights.md)
 
 
 ## App Details 
